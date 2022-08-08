@@ -1,73 +1,55 @@
+import { Request, Response, Router } from 'express'
 
-import { Request, Response, Router } from "express";
-
-import { ListService } from "../services/list.service";
+import { ListService } from '../services/list.service'
 
 export class ListController {
-  public router = Router();
-  private listService = new ListService();
+  public router = Router()
+  private listService = new ListService()
 
   constructor() {
-    this.setRoutes();
+    this.setRoutes()
   }
 
   public setRoutes() {
-    this.router.route("/")
-      .get(this.sayHello)
-      .post(this.add);
+    this.router.route('/').get(this.findAll).post(this.add)
 
-    this.router.route("/all")
-      .get(this.findAll);
-
-    this.router.route("/:id")
-      .delete(this.delete)
-      .put(this.update);
+    this.router.route('/:id').delete(this.delete).put(this.update)
   }
-
-  private sayHello = (_: Request, res: Response) => {
-    const welcomeMessage = this.listService.welcomeMessage();
-    res.send(welcomeMessage);
-  };
 
   private findAll = async (_: Request, res: Response) => {
     try {
-      const lists = await this.listService.findAll();
-      res.send(lists);
+      const lists = await this.listService.findAll()
+      res.send(lists)
     } catch (e: any) {
-      res.status(500).send(e.message);
+      res.status(500).send(e.message)
     }
-  };
+  }
 
   private add = async (req: Request, res: Response) => {
     try {
-      const addListResult = await this.listService.add(req.body);
-      res.send(addListResult);
+      const addListResult = await this.listService.add(req.body)
+      res.send(addListResult)
     } catch (e: any) {
-      res.status(500).send(e.message);
+      res.status(500).send(e.message)
     }
-  };
+  }
 
   private delete = async (req: Request, res: Response) => {
     try {
-      const deleteListResult = await this.listService.delete(
-        req.params.id
-      );
-      res.send(deleteListResult);
+      const deleteListResult = await this.listService.delete(req.params.id)
+      res.send(deleteListResult)
     } catch (e: any) {
-      res.status(500).send(e.message);
+      res.status(500).send(e.message)
     }
-  };
+  }
 
   // Our new update method
   private update = async (req: Request, res: Response) => {
     try {
-      const updateListResult = await this.listService.update(
-        req.params.id,
-        req.body
-      );
-      res.send(updateListResult);
+      const updateListResult = await this.listService.update(req.params.id, req.body)
+      res.send(updateListResult)
     } catch (e: any) {
-      res.status(500).send(e.message);
+      res.status(500).send(e.message)
     }
-  };
+  }
 }

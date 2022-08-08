@@ -1,6 +1,6 @@
-import { Document } from "mongoose";
+import { Document } from 'mongoose'
 
 export interface IItem extends Document {
-  name: string;
-  listId: string;
+  name: string
+  listId: string
 }

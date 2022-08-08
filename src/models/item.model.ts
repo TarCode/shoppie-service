@@ -1,9 +1,12 @@
-import { IItem } from "../interfaces/item.interface";
-import { model, Schema } from "mongoose";
+import { IItem } from '../interfaces/item.interface'
+import { model, Schema } from 'mongoose'
 
-const ItemSchema = new Schema({
-  name: { type: String, required: [true, "Field is required"] },
-  listId: { type: String, required: [true, "Field is required"] },
-}, { timestamps: true });
+const ItemSchema = new Schema(
+  {
+    name: { type: String, required: [true, 'Field is required'] },
+    listId: { type: String, required: [true, 'Field is required'] },
+  },
+  { timestamps: true },
+)
 
-export const Item = model<IItem>("Item", ItemSchema);
+export const Item = model<IItem>('Item', ItemSchema)
