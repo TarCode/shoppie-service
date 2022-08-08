@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - dist:/app/dist
+      - src:/app/src
     ports:
       - "9001:9001"
   mongo:
@@ -21,4 +21,4 @@ services:
       - 27017:27017
 volumes:
   mongodata:
-  dist:
+  src:

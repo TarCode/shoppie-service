@@ -1,5 +1,4 @@
 import { MONGO_URL } from "./constants/shoppie.constants";
-import { ListService } from "./services/list.service";
 import { ListController } from "./controllers/list.controller";
 import bodyParser from "body-parser";
 import cors from "cors";
