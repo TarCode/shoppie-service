@@ -1,13 +1,8 @@
 import { IItem } from '../interfaces/item.interface'
 import { Item } from '../models/item.model'
-import { WELCOME_MESSAGE } from '../constants/shoppie.constants'
 import { ObjectId } from 'mongoose'
 
 export class ItemService {
-  public welcomeMessage(): string {
-    return WELCOME_MESSAGE
-  }
-
   public findAll(): Promise<IItem[]> {
     return Item.find({}).exec()
   }

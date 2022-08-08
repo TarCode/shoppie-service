@@ -1,13 +1,8 @@
 import { IList } from '../interfaces/list.interface'
 import { List } from '../models/list.model'
-import { WELCOME_MESSAGE } from '../constants/shoppie.constants'
 import { ObjectId } from 'mongoose'
 
 export class ListService {
-  public welcomeMessage(): string {
-    return WELCOME_MESSAGE
-  }
-
   public findAll(): Promise<IList[]> {
     return List.find({}).exec()
   }
