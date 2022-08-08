@@ -1,5 +1,6 @@
 import { MONGO_URL } from "./constants/shoppie.constants";
 import { ListController } from "./controllers/list.controller";
+import { ItemController } from "./controllers/item.controller";
 import bodyParser from "body-parser";
 import cors from "cors";
 import express from "express";
@@ -35,8 +36,10 @@ class App {
 
   private setControllers() {
     const listController = new ListController();
+    const itemController = new ItemController();
 
     this.app.use("/lists", listController.router);
+    this.app.use("/items", itemController.router);
   }
 }
 
