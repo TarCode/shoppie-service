@@ -19,6 +19,7 @@ services:
       - MONGO_INITDB_DATABASE=Shoppie
     ports:
       - 27017:27017
+
 volumes:
   mongodata:
   dist:
