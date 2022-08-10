@@ -10,6 +10,9 @@ export const verifyToken = (req: RequestUser, res: Response, next: NextFunction)
   }
   try {
     const decoded = jwt.verify(token, TOKEN_KEY)
+    // TODO: Check if decoded user exists in db
+    console.log('DECODED TOKEN', decoded)
+
     req.user = decoded
   } catch (err) {
     return res.status(401).send('Invalid Token')

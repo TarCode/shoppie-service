@@ -1,7 +1,6 @@
 import { Request, Response, Router } from 'express'
-
 import { ListService } from '../services/list.service'
-
+import { RequestUser } from '../types/express/'
 export class ListController {
   public router = Router()
   private listService = new ListService()
@@ -16,9 +15,10 @@ export class ListController {
     this.router.route('/:id').delete(this.delete).put(this.update)
   }
 
-  private findAll = async (_: Request, res: Response) => {
+  private findAll = async (req: Request, res: Response) => {
     try {
-      const lists = await this.listService.findAll()
+      const reqUser = req as any as RequestUser
+      const lists = await this.listService.findByUserId(reqUser.user.user_id)
       res.send(lists)
     } catch (e: any) {
       res.status(500).send(e.message)
@@ -27,7 +27,11 @@ export class ListController {
 
   private add = async (req: Request, res: Response) => {
     try {
-      const addListResult = await this.listService.add(req.body)
+      const reqUser = req as any as RequestUser
+      const addListResult = await this.listService.add({
+        ...req.body,
+        userId: reqUser.user.user_id,
+      })
       res.send(addListResult)
     } catch (e: any) {
       res.status(500).send(e.message)

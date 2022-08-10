@@ -3,8 +3,8 @@ import { List } from '../models/list.model'
 import { ObjectId } from 'mongoose'
 
 export class ListService {
-  public findAll(): Promise<IList[]> {
-    return List.find({}).exec()
+  public findByUserId(userId: string): Promise<IList[]> {
+    return List.find({ userId }).exec()
   }
 
   public add(list: IList): Promise<IList> {

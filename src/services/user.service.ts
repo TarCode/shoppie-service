@@ -23,8 +23,13 @@ export class UserService {
       expiresIn: '2h',
     })
 
-    user.token = token
-    return user
+    const userWithToken = {
+      email: user.email,
+      password: user.password,
+      token,
+    } as IUser
+
+    return userWithToken
   }
 
   public async login(email: string, password: string): Promise<IUser | { error: string }> {
@@ -35,9 +40,13 @@ export class UserService {
         expiresIn: '2h',
       })
 
-      user.token = token
+      const userWithToken = {
+        email: user.email,
+        password: user.password,
+        token,
+      } as IUser
 
-      return user
+      return userWithToken
     }
     return { error: 'Invalid credentials' }
   }
