@@ -18,26 +18,26 @@ export class UserController {
   private register = async (req: Request, res: Response) => {
     const { email, password } = req.body
     if (!(email && password)) {
-      res.status(400).send('All input is required')
+      return res.status(400).send('All input is required')
     }
     try {
       const registerResult = await this.userService.register(email, password)
-      res.send(registerResult)
+      return res.send(registerResult)
     } catch (e: any) {
-      res.status(500).send(e.message)
+      return res.status(500).send(e.message)
     }
   }
 
   private login = async (req: Request, res: Response) => {
     const { email, password } = req.body
     if (!(email && password)) {
-      res.status(400).send('All input is required')
+      return res.status(400).send('All input is required')
     }
     try {
       const loginResult = await this.userService.login(email, password)
-      res.send(loginResult)
+      return res.send(loginResult)
     } catch (e: any) {
-      res.status(500).send(e.message)
+      return res.status(500).send(e.message)
     }
   }
 }
