@@ -22,6 +22,9 @@ export class UserController {
     }
     try {
       const registerResult = await this.userService.register(email, password)
+      if (registerResult.hasOwnProperty('error') ) {
+        return res.status(401).send(registerResult)
+      }
       return res.send(registerResult)
     } catch (e: any) {
       return res.status(500).send(e.message)
@@ -35,6 +38,9 @@ export class UserController {
     }
     try {
       const loginResult = await this.userService.login(email, password)
+      if (loginResult.hasOwnProperty('error') ) {
+        return res.status(401).send(loginResult)
+      }
       return res.send(loginResult)
     } catch (e: any) {
       return res.status(500).send(e.message)
