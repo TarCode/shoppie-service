@@ -1,36 +1,12 @@
 version: '3'
 
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    volumes:
-      - dist:/app/dist
-    ports:
-      - '8080:8080'
-    depends_on:
-      - es
-      - kibana
-    environment:
-      - LOGSTASH_HOST=logstash
-  mongo:
-    container_name: mongoDB
-    image: mongo:latest
-    restart: always
-    volumes:
-      - mongodata:/data/db
-    environment:
-      - MONGO_INITDB_DATABASE=Shoppie
-    ports:
-      - 27017:27017
-
   es:
     labels:
       com.example.service: 'es'
       com.example.description: 'For searching and indexing data'
     image: elasticsearch:5.4
-    container_name: shoppie_es
+    container_name: shoppieES
     volumes:
       - type: volume
         source: esdata
@@ -63,8 +39,31 @@ services:
       - ELASTICSEARCH_URL=http://es:9200
     depends_on:
       - es
-
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - dist:/app/dist
+    ports:
+      - '8080:8080'
+    depends_on:
+      - es
+      - kibana
+    environment:
+      - LOGSTASH_HOST=logstash
+  mongo:
+    container_name: mongoDB
+    image: mongo:latest
+    restart: always
+    volumes:
+      - mongodata:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=Shoppie
+    ports:
+      - 27017:27017
 volumes:
   mongodata:
   dist:
   esdata:
+  logstash:
