@@ -18,7 +18,14 @@ export class UserController {
   private register = async (req: Request, res: Response) => {
     const { email, password } = req.body
     if (!(email && password)) {
-      return res.status(400).send('All input is required')
+      return res.status(400)
+      .send({ 
+        error: 'All input is required',
+        missingFields: {
+          email: !email ? 'Email is required' : '',
+          password: !password ? 'Password is required' : ''
+        }
+      })
     }
     try {
       const registerResult = await this.userService.register(email, password)
@@ -34,7 +41,13 @@ export class UserController {
   private login = async (req: Request, res: Response) => {
     const { email, password } = req.body
     if (!(email && password)) {
-      return res.status(400).send('All input is required')
+      return res.status(400).send({ 
+        error: 'All input is required',
+        missingFields: {
+          email: !email ? 'Email is required' : '',
+          password: !password ? 'Password is required' : ''
+        }
+      })
     }
     try {
       const loginResult = await this.userService.login(email, password)
