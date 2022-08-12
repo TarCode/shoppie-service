@@ -1,9 +1,22 @@
 import winston from 'winston'
-import { ElasticsearchTransport } from 'winston-elasticsearch'
+import { ElasticsearchTransport, LogData } from 'winston-elasticsearch'
+import { ELASTICSEARCH_URL } from '../constants/shoppie.constants'
 
 export const logging = () => {
   const esTransportOpts = {
     level: 'info',
+    clientOpts: {
+      node: ELASTICSEARCH_URL,
+      log: 'info',
+    },
+    transformer: (logData: LogData) => {
+      return {
+        '@timestamp': new Date().getTime(),
+        severity: logData.level,
+        message: `[${logData.level}] LOG Message: ${logData.message}`,
+        fields: {},
+      }
+    },
   }
 
   const logger = winston.createLogger({
