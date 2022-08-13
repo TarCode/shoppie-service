@@ -4,13 +4,15 @@ import { ELASTICSEARCH_URL } from '../constants/shoppie.constants'
 
 const esTransportOpts = {
   level: 'info',
+  index: 'logstash',
+  indexSuffixPattern: '-YYYY-MM-DD',
   clientOpts: {
     node: ELASTICSEARCH_URL,
     log: 'info',
   },
   transformer: (logData: LogData) => {
     return {
-      '@timestamp': new Date().getTime(),
+      timestamp: new Date().getTime(),
       severity: logData.level,
       message: `[${logData.level}] LOG Message: ${logData.message}`,
       fields: {},
