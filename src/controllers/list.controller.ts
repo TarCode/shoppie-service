@@ -12,7 +12,7 @@ export class ListController {
   public setRoutes() {
     this.router.route('/').get(this.findAll).post(this.add)
 
-    this.router.route('/:id').delete(this.delete).put(this.update)
+    this.router.route('/:id').get(this.findOne).delete(this.delete).put(this.update)
   }
 
   private findAll = async (req: Request, res: Response) => {
@@ -20,6 +20,15 @@ export class ListController {
       const reqUser = req as any as RequestUser
       const lists = await this.listService.findByUserId(reqUser.user.user_id)
       res.send(lists)
+    } catch (e: any) {
+      res.status(500).send(e.message)
+    }
+  }
+
+  private findOne = async (req: Request, res: Response) => {
+    try {
+      const list = await this.listService.findById(req.params.id)
+      res.send(list)
     } catch (e: any) {
       res.status(500).send(e.message)
     }

@@ -7,6 +7,10 @@ export class ListService {
     return List.find({ userId }).exec()
   }
 
+  public findById(id: string): Promise<IList | null> {
+    return List.findById(id).exec()
+  }
+
   public add(list: IList): Promise<IList> {
     const newList = new List(list)
     return newList.save()
