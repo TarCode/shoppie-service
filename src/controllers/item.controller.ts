@@ -13,7 +13,7 @@ export class ItemController {
   public setRoutes() {
     this.router.route('/').get(this.findAll).post(this.add)
 
-    this.router.route('/list/:id').get(this.findByListId)
+    this.router.route('/list/:listId').get(this.findByListId)
 
     this.router.route('/:id').delete(this.delete).put(this.update)
   }

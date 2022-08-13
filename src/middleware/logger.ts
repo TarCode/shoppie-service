@@ -1,18 +1,19 @@
 import winston from 'winston'
 import { ElasticsearchTransport, LogData } from 'winston-elasticsearch'
 import { ELASTICSEARCH_URL } from '../constants/shoppie.constants'
+import moment from 'moment'
 
 const esTransportOpts = {
   level: 'info',
   index: 'logstash',
-  indexSuffixPattern: '-YYYY-MM-DD',
+  indexSuffixPattern: 'YYYY-MM-DD HH:mm:ss',
   clientOpts: {
     node: ELASTICSEARCH_URL,
     log: 'info',
   },
   transformer: (logData: LogData) => {
     return {
-      timestamp: new Date().getTime(),
+      timestamp: moment().format('YYYY-MM-DD HH:mm:ss'),
       severity: logData.level,
       message: `[${logData.level}] LOG Message: ${logData.message}`,
       fields: {},
