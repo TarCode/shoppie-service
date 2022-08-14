@@ -27,8 +27,8 @@ npm run dev
 npm start
 ```
 
-Runs on localhost:8080 by default but can be configured using the `PORT` environment variable.
-You should also be running a MongoDB server either locally or with Docker and the environment variable `MONGO_URI` should be set in a `.env` file or in your console environment 
+Runs on `localhost:8080` by default but can be configured using the `PORT` environment variable.
+You should also be running a MongoDB server either locally or with Docker and the environment variable `MONGO_URI` should be set in a `.env` file or in your console environment
 
 ### Running tests
 
@@ -40,6 +40,7 @@ npm run test:watch
 ```
 
 ### Linting
+
 ```
 npm run lint
 
