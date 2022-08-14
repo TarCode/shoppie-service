@@ -1,13 +1,17 @@
 import { IList } from '../interfaces/list.interface'
 import { List } from '../models/list.model'
 import { ObjectId } from 'mongoose'
+import { Get, Route, Inject, Path } from 'tsoa'
 
+@Route('/lists')
 export class ListService {
-  public findByUserId(userId: string): Promise<IList[]> {
+  @Get('/')
+  public findByUserId(@Inject() userId: string): Promise<IList[]> {
     return List.find({ userId }).exec()
   }
 
-  public findById(id: string): Promise<IList | null> {
+  @Get('{id}')
+  public findById(@Path() id: string): Promise<IList | null> {
     return List.findById(id).exec()
   }
 

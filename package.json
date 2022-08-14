@@ -4,8 +4,11 @@
   "description": "",
   "main": "./dist/server.js",
   "scripts": {
+    "predev": "npm run swagger",
+    "prebuild": "npm run swagger",
+    "swagger": "tsoa spec",
     "build": "tsc",
-    "dev": "nodemon",
+    "dev": "concurrently \"nodemon\" \"nodemon -x tsoa spec\"",
     "start": "node ./dist/server.js",
     "lint": "eslint src/**/*.ts",
     "format": "eslint src/**/*.ts --fix",
@@ -22,6 +25,8 @@
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.4",
     "mongoose": "^6.5.1",
+    "swagger-ui-express": "^4.5.0",
+    "tsoa": "^4.1.1",
     "winston": "^3.8.1"
   },
   "devDependencies": {
@@ -33,8 +38,10 @@
     "@types/jsonwebtoken": "^8.5.8",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^18.6.4",
+    "@types/swagger-ui-express": "^4.1.3",
     "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.33.0",
+    "concurrently": "^7.3.0",
     "eslint": "^8.21.0",
     "jest": "^28.1.3",
     "nodemon": "^2.0.19",

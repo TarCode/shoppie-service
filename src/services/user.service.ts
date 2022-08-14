@@ -3,9 +3,14 @@ import { User } from '../models/user.model'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { TOKEN_KEY } from '../constants/shoppie.constants'
+import { Post, Route, Body } from 'tsoa'
 
+@Route('/user')
 export class UserService {
-  public async register(email: string, password: string): Promise<IUser | { error: string }> {
+  @Post('/register')
+  public async register(
+    @Body() { email, password }: { email: string; password: string },
+  ): Promise<IUser | { error: string }> {
     const oldUser = await User.findOne({ email })
 
     if (oldUser) {
@@ -32,7 +37,10 @@ export class UserService {
     return userWithToken
   }
 
-  public async login(email: string, password: string): Promise<IUser | { error: string }> {
+  @Post('/login')
+  public async login(
+    @Body() { email, password }: { email: string; password: string },
+  ): Promise<IUser | { error: string }> {
     const user = await User.findOne({ email })
 
     if (user && (await bcrypt.compare(password, user.password))) {

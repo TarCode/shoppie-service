@@ -32,7 +32,7 @@ export class UserController {
       })
     }
     try {
-      const registerResult = await this.userService.register(email, password)
+      const registerResult = await this.userService.register({ email, password })
       if (registerResult.hasOwnProperty('error')) {
         const error = registerResult as { error: string }
         logError(req, NETWORK.unauthorized.code, error.error)
@@ -60,7 +60,7 @@ export class UserController {
       })
     }
     try {
-      const loginResult = await this.userService.login(email, password)
+      const loginResult = await this.userService.login({ email, password })
       if (loginResult.hasOwnProperty('error')) {
         const error = loginResult as { error: string }
         logError(req, NETWORK.unauthorized.code, error.error)
