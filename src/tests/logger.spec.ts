@@ -1,4 +1,5 @@
 import logger from '../logger/logger'
+import { createLogger, transports } from 'winston'
 
 jest.mock('winston', () => {
   const mFormat = {
@@ -20,7 +21,6 @@ jest.mock('winston', () => {
     createLogger: jest.fn(() => mLogger),
   }
 })
-const { createLogger, format, transports } = require('winston')
 
 describe('logger', () => {
   afterEach(() => {
