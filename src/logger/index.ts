@@ -1,21 +1,11 @@
-import winston from 'winston'
+import { Request } from 'express'
 
-const logger = winston.createLogger({
-  level: 'info',
-  format: winston.format.json(),
-  transports: [
-    new winston.transports.File({ filename: 'error.log', level: 'error' }),
-    new winston.transports.File({ filename: 'combined.log' }),
-  ],
-})
+import logger from './logger'
 
-if (process.env.NODE_ENV !== 'production') {
-  logger.add(
-    new winston.transports.Console({
-      //we also log to console if we're not in production
-      format: winston.format.simple(),
-    }),
-  )
+export const logError = (req: Request, code: number, message: string) => {
+  logger.error(`${code} || ${message} - ${req.originalUrl} - ${req.method} - ${req.ip}`)
 }
 
-export default logger
+export const logSuccess = (req: Request, code: number, message: string) => {
+  logger.info(`${code} || ${message} - ${req.originalUrl} - ${req.method} - ${req.ip}`)
+}
