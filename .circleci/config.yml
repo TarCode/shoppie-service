@@ -16,8 +16,8 @@ jobs:
           command: |
             sudo curl https://cli-assets.heroku.com/install.sh | sh
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a python-django-starter web
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a python-django-starter web
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a murmuring-harbor-47924 web
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a murmuring-harbor-47924 web
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
