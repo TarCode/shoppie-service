@@ -19,3 +19,14 @@ workflows:
           version: '16.10'
           # If you are using yarn, change the line below from "npm" to "yarn"
           pkg-manager: npm
+deploy:
+      machine: true
+      steps:
+        - checkout
+        - run:
+            name: Build and push Docker image to Heroku
+            command: |
+              sudo curl https://cli-assets.heroku.com/install.sh | sh
+              HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
+              HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a murmuring-harbor-47924 web
+              HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a murmuring-harbor-47924 web
