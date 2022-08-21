@@ -26,22 +26,6 @@ class App {
     this.app.use(bodyParser.json({ limit: '50mb' }))
     this.app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
     this.app.use(cors())
-    this.app.use(
-      '/docs',
-      swaggerUi.serve,
-      swaggerUi.setup(undefined, {
-        swaggerOptions: {
-          url: '/static/swagger.json',
-          authAction: {
-            JWT: {
-              name: 'JWT',
-              schema: { type: 'apiKey', in: 'header', name: 'Authorization', description: '' },
-              value: 'Bearer <JWT>',
-            },
-          },
-        },
-      }),
-    )
   }
 
   private setMongoConfig() {
@@ -60,8 +44,23 @@ class App {
     const listController = new ListController()
     const itemController = new ItemController()
     const userController = new UserController()
-
-    this.app.use('/static', express.static(path.join(__dirname, './public')))
+    this.app.use('/static', express.static(path.join(__dirname, 'public')))
+    this.app.use(
+      '/docs',
+      swaggerUi.serve,
+      swaggerUi.setup(undefined, {
+        swaggerOptions: {
+          url: '/static/swagger.json',
+          authAction: {
+            JWT: {
+              name: 'JWT',
+              schema: { type: 'apiKey', in: 'header', name: 'Authorization', description: '' },
+              value: 'Bearer <JWT>',
+            },
+          },
+        },
+      }),
+    )
 
     this.app.use('/user', userController.router)
 
