@@ -8,6 +8,7 @@ import express, { RequestHandler } from 'express'
 import mongoose from 'mongoose'
 import { verifyToken } from './middleware/auth'
 import swaggerUi from 'swagger-ui-express'
+import statusMonitor from 'express-status-monitor'
 
 class App {
   public app: express.Application
@@ -20,6 +21,7 @@ class App {
   }
 
   private setConfig() {
+    this.app.use(statusMonitor())
     this.app.use(bodyParser.json({ limit: '50mb' }))
     this.app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
     this.app.use(cors())
