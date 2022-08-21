@@ -26,7 +26,6 @@ class App {
     this.app.use(bodyParser.json({ limit: '50mb' }))
     this.app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
     this.app.use(cors())
-    this.app.use('/static', express.static(path.join(__dirname, 'public')))
     this.app.use(
       '/docs',
       swaggerUi.serve,
@@ -61,6 +60,8 @@ class App {
     const listController = new ListController()
     const itemController = new ItemController()
     const userController = new UserController()
+
+    this.app.use('/static', express.static(path.join(__dirname, 'public')))
 
     this.app.use('/user', userController.router)
 
