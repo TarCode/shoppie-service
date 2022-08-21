@@ -44,7 +44,7 @@ class App {
     const listController = new ListController()
     const itemController = new ItemController()
     const userController = new UserController()
-    this.app.use('/static', express.static(path.join(__dirname, 'public')))
+    this.app.use('/static', express.static(path.join(__dirname, '/public')))
     this.app.use(
       '/docs',
       swaggerUi.serve,
@@ -64,7 +64,7 @@ class App {
 
     this.app.use('/user', userController.router)
 
-    // this.app.use(verifyToken as any as RequestHandler)
+    this.app.use(verifyToken as any as RequestHandler)
     this.app.use('/lists', listController.router)
     this.app.use('/items', itemController.router)
   }
