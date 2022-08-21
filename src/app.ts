@@ -9,6 +9,7 @@ import mongoose from 'mongoose'
 import { verifyToken } from './middleware/auth'
 import swaggerUi from 'swagger-ui-express'
 import statusMonitor from 'express-status-monitor'
+import path from 'path'
 
 class App {
   public app: express.Application
@@ -25,14 +26,15 @@ class App {
     this.app.use(bodyParser.json({ limit: '50mb' }))
     this.app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
     this.app.use(cors())
-    this.app.use(express.static('public'))
+    this.app.use('/static', express.static(path.join(__dirname, 'public')))
+
 
     this.app.use(
       '/docs',
       swaggerUi.serve,
       swaggerUi.setup(undefined, {
         swaggerOptions: {
-          url: '/swagger.json',
+          url: '/static/swagger.json',
           authAction: {
             JWT: {
               name: 'JWT',
