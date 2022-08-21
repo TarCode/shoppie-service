@@ -27,8 +27,6 @@ class App {
     this.app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
     this.app.use(cors())
     this.app.use('/static', express.static(path.join(__dirname, 'public')))
-
-
     this.app.use(
       '/docs',
       swaggerUi.serve,
@@ -66,7 +64,7 @@ class App {
 
     this.app.use('/user', userController.router)
 
-    this.app.use(verifyToken as any as RequestHandler)
+    // this.app.use(verifyToken as any as RequestHandler)
     this.app.use('/lists', listController.router)
     this.app.use('/items', itemController.router)
   }
