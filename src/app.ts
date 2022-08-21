@@ -61,7 +61,7 @@ class App {
     const itemController = new ItemController()
     const userController = new UserController()
 
-    this.app.use('/static', express.static(path.join(__dirname, '../public')))
+    this.app.use('/static', express.static(path.join(__dirname, './public')))
 
     this.app.use('/user', userController.router)
 
