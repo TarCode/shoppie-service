@@ -62,7 +62,7 @@ class App {
       }),
     )
 
-    this.app.use('/user', userController.router)
+    this.app.use('/users', userController.router)
 
     this.app.use(verifyToken as any as RequestHandler)
     this.app.use('/lists', listController.router)
