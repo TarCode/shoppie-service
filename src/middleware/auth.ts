@@ -4,7 +4,8 @@ import jwt from 'jsonwebtoken'
 import { TOKEN_KEY } from '../constants/shoppie.constants'
 
 export const verifyToken = (req: RequestUser, res: Response, next: NextFunction) => {
-  const token = req.body.token || req.query.token || req.headers['Authorization']
+  const token = req.headers['authorization']
+
   if (!token) {
     return res.status(403).send('A token is required for authentication')
   }
