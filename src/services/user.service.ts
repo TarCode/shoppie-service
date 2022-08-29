@@ -30,7 +30,6 @@ export class UserService {
 
     const userWithToken = {
       email: user.email,
-      password: user.password,
       token,
     } as IUser
 
@@ -50,7 +49,6 @@ export class UserService {
 
       const userWithToken = {
         email: user.email,
-        password: user.password,
         token,
       } as IUser
 
